@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useHistory } from "react-router";
 import { FiLogIn} from 'react-icons/fi'
-import { Link } from "react-router-dom";
+import Modal from 'react-modal'
 
 import { api } from "../../services/api";
 
@@ -9,14 +9,17 @@ import logoImg from '../../assets/logo.svg'
 import heoresImg from '../../assets/background.png'
 
 import './styles.scss';
+import RegisterModal from "../../components/RegisterModal";
 
+Modal.setAppElement("#root")
 
 export default function Logon() {
   const [id, setId] = useState('');
+  const [ registerModel, setRegisterModel] = useState(false)
 
   const history = useHistory();
 
-  async function handleLogin(e: any){
+  async function handleLogin(e: FormEvent){
     e.preventDefault()
     try {
       const response = await api.post('session', {id})
@@ -27,6 +30,14 @@ export default function Logon() {
     } catch (error) {
 
     }
+  }
+
+  function handleOpenRegisterModel() {
+    setRegisterModel(true)
+  }
+
+  function handleCloseRegisterModel(){
+    setRegisterModel(false)
   }
 
   return(
@@ -41,12 +52,15 @@ export default function Logon() {
             onChange={e => setId(e.target.value)}
           />
           <button className="button" type="submit">Entrar</button>
-          <Link className='back-link' to='/register'>
+          <span className='back-link'  onClick={handleOpenRegisterModel}>
             <FiLogIn size={16} color='#E02041' />
             Não tenho cadastro
-          </Link>
+          </span>
         </form>
       </section>
+      <RegisterModal
+        isOpen={registerModel}
+        onRequestClose={handleCloseRegisterModel} />
       <img src={heoresImg} alt='Heroes' />
     </div>
   )

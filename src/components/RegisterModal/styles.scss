@@ -1,19 +1,12 @@
 .register-container {
   width: 100%;
-  max-width: 1120px;
-  height: 100vh;
-  margin: 0 auto;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  
 
   & .content {
     width: 100%;
     padding: 96px;
     background: #F0F0F5;
     border-radius: 8px;
-    box-shadow: 0 0 100px rgba(0,0,0, 0.1);
 
     display: flex;
     align-items: center;
@@ -22,6 +15,10 @@
     & section {
       width: 100%;
       max-width: 380px;
+
+      & a {
+        cursor: pointer;
+      }
 
       & img {
         width: 191px;
@@ -45,6 +42,8 @@
       width: 100%;
       max-width: 450px;
 
+    
+
       & input {
         margin-top: 8px;
 
@@ -64,7 +63,7 @@
          }
 
          & input:last-child {
-           width: 14px;
+           width: 70px;
          }
       }
     }
