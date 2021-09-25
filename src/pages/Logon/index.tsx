@@ -9,7 +9,8 @@ import logoImg from '../../assets/logo.svg'
 import heoresImg from '../../assets/background.png'
 
 import './styles.scss';
-import RegisterModal from "../../components/RegisterModal";
+import RegisterModal from "./RegisterModal";
+import { Link } from "react-router-dom";
 
 Modal.setAppElement("#root")
 
@@ -51,8 +52,9 @@ export default function Logon() {
             value={id}
             onChange={e => setId(e.target.value)}
           />
-          <button className="button" type="submit">Entrar</button>
-          <span className='back-link'  onClick={handleOpenRegisterModel}>
+          <Link className='button' to='/profile'>Entrar</Link>
+          {/* <button className="button" type="submit">Entrar</button> */}
+          <span className='back-link'  onClick={handleOpenRegisterModel} >
             <FiLogIn size={16} color='#E02041' />
             Não tenho cadastro
           </span>

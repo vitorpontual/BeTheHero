@@ -2,12 +2,12 @@ import { FormEvent, useState } from "react"
 import { useHistory } from "react-router";
 import Modal from 'react-modal'
 
-import { api } from "../../services/api";
 
-import logoImg from '../../assets/logo.svg'
+import logoImg from '../../../assets/logo.svg'
 import { FiArrowLeft } from "react-icons/fi";
 
 import './styles.scss'
+import { api } from "../../../services/api";
 
 interface RegisterModel {
   isOpen: boolean;

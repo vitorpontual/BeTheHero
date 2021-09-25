@@ -1,3 +1,9 @@
+:root {
+  --text-color: #737380;
+  --trash-color: #A8A8B3;
+  --button-color: #e02041;
+}
+
 * { 
   margin: 0;
   padding: 0;
@@ -15,7 +21,7 @@ html {
 }
 
 body { 
-  background: #f0f0f5;
+  background: #E5E5E5;
   -webkit-font-smoothing: antialiased;
 }
 body, input, button, textarea {
@@ -54,7 +60,7 @@ form textarea {
 .button {
   width: 100%;
   height: 60px;
-  background: #e02041;
+  background: var(--button-color);
   border: 0;
   border-radius: 8px;
   color: #FFF;
@@ -81,6 +87,7 @@ form textarea {
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.2s;
+  cursor: pointer;
 }
 
 .back-link svg {
