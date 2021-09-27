@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": "7060",
+  "username": "docker",
+  "password": "tog",
+  "database": "be_the_hero",
+  "migrations": ["./src/database/migrations/*"],
+  "entities": ["src/entities/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/database/migrations",
+    "entitiesDir": "src/entities"
+  }
+}
