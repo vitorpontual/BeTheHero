@@ -1,7 +1,6 @@
-
 import { OngRepository } from "../../repositories/infra/OngRepository";
-import { CreateOngService } from "../../service/CreateOngService";
 import { CreateOngController } from "./CreateOngController";
+import { CreateOngService } from "./CreateOngService";
 
 
 export default(): CreateOngController => {

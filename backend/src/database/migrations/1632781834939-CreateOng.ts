@@ -10,7 +10,7 @@ export class CreateOng1632781834939 implements MigrationInterface {
                 columns: [
                     {
                         name: "id",
-                        type: "uuid",
+                        type: "varchar",
                         isPrimary: true
                     },
                     {
@@ -50,7 +50,7 @@ export class CreateOng1632781834939 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("ong")
+        await queryRunner.dropTable("ongs")
     }
 
 }

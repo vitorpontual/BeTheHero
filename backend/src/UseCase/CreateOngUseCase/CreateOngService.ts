@@ -1,5 +1,5 @@
-import { AppError } from "../error/AppErrors";
-import { IOngRepository } from "../repositories/IOngRepository";
+import { AppError } from "../../error/AppErrors"
+import { IOngRepository } from "../../repositories/IOngRepository"
 
 interface IOngRequest {
   name: string;
@@ -13,14 +13,16 @@ export class CreateOngService {
 
   constructor(private ongRepository: IOngRepository){}
   async execute({name, email, whatsapp, city, uf}: IOngRequest){
-    const ongAlreadyExists = await this.ongRepository.findEmail(email)
+    const ongAlreadyExists = await this.ongRepository.findByEmail(email)
 
     if(ongAlreadyExists){
       throw new AppError("Ong already exists")
     }
 
-    await this.ongRepository.create({
+    const id = await this.ongRepository.create({
       name, email, whatsapp, city, uf
     })
+
+    return id
   }
 }

@@ -29,16 +29,7 @@ export function CaseProvider({ children }: CaseProviderProps) {
   const [incidents, setIncidents] = useState<Incidents[]>([])
 
   const ongId = localStorage.getItem('ongId')
-
-  useEffect(() => {
-    api.get('profile', {
-      headers: {
-        Authorization: ongId
-      }
-    }).then(response => {
-      setIncidents(response.data);
-    });
-  }, [ongId]);
+ 
 
   const NewIncident = async (data: IncidentsInput) => {
 

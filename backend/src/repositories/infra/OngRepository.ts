@@ -12,7 +12,7 @@ export class OngRepository implements IOngRepository {
   }
   
 
-  async create({name, email, whatsapp, city, uf, id}: ICreateOngDTO): Promise<void> {
+  async create({name, email, whatsapp, city, uf, id}: ICreateOngDTO): Promise<Ong> {
     const ong = this.repository.create({
       name,
       email,
@@ -23,10 +23,18 @@ export class OngRepository implements IOngRepository {
     })
 
     await this.repository.save(ong)
+
+    return ong
   }
 
-  async findEmail(email:string): Promise<Ong>{
+  async findByEmail(email:string): Promise<Ong>{
     const ong = await this.repository.findOne({ email})
+
+    return ong
+  }
+
+  async findById(id: string): Promise<Ong> {
+    const ong = await this.repository.findOne(id)
 
     return ong
   }

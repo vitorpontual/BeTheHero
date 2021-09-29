@@ -23,7 +23,7 @@ export default function Logon() {
   async function handleLogin(e: FormEvent){
     e.preventDefault()
     try {
-      const response = await api.post('session', {id})
+      const response = await api.post('ongs/session', {id})
 
       localStorage.setItem('ongId', id);
       localStorage.setItem('ongName', response.data.name)
@@ -52,8 +52,8 @@ export default function Logon() {
             value={id}
             onChange={e => setId(e.target.value)}
           />
-          <Link className='button' to='/profile'>Entrar</Link>
-          {/* <button className="button" type="submit">Entrar</button> */}
+          {/* <Link className='button' to='/profile'>Entrar</Link> */}
+          {<button className="button" type="submit">Entrar</button>}
           <span className='back-link'  onClick={handleOpenRegisterModel} >
             <FiLogIn size={16} color='#E02041' />
             Não tenho cadastro

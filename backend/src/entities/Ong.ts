@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import { v4 as uuid } from 'uuid'
+import crypto from 'crypto'
 
 
 @Entity("ongs")
@@ -31,7 +31,8 @@ export class Ong{
 
   constructor(){
     if(!this.id){
-      this.id = uuid()
+      const id = crypto.randomBytes(4).toString("HEX")
+      this.id = id
     }
   }
 }

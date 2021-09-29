@@ -4,6 +4,7 @@ import './styles.scss'
 
 interface IncidentsProps {
   incident: {
+    id: string;
     title: string;
     description: string;
     value: number;

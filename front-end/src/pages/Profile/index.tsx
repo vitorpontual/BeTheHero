@@ -1,35 +1,46 @@
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
+import { api } from "../../services/api";
 
 import './styles.scss'
 
+interface Incidents {
+  id: string;
+  title: string;
+  description: string;
+  value: number;
+}
+
 
 export default function Profile() {
- 
+  const [incidents, setIncidents] = useState<Incidents[]>([])
 
-  const list = [
-    {
-      "id": "123123",
-      "title": "Cadelinha atropelada",
-      "value": 120,
-      "description": "A cadelinha Jolie foi atropelada por um carro no bairro Santana e teve que passar por uma cirurgia às pressas."
-    },
-    {
-      "id": "11111",
-      "title": "Cadelinha atropelada",
-      "value": 120,
-      "description": "A cadelinha Jolie foi atropelada por um carro no bairro Santana e teve que passar por uma cirurgia às pressas."
-    },
 
-  ]
+  const ongId = localStorage.getItem('ongId');
+  const ongName = localStorage.getItem('ongName');
+
+  const history = useHistory();
+
+  useEffect(() => {
+    api.get('profile', {
+      headers: {
+        Authorization: ongId
+      }
+    }).then(response => {
+      setIncidents(response.data);
+    });
+  }, [ongId]);
+
 
 
   return (
     <div className="profile-container">
-      <Header ongName='Baby Baby Biruleibe' />
+      <Header ongName={ongName as string} />
       <h1>Casos Cadastrados</h1>
       <ul>
-        {list.map(data => (
+        {incidents.map(data => (
           <Card key={data.id} incident={data} />
         ))}
       </ul>
