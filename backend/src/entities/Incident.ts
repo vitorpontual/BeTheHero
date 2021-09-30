@@ -19,7 +19,7 @@ export class Incident {
 
   @ManyToOne(() => Ong)
   @JoinColumn({name: "ong_id"})
-  ong: Ong
+  ong_id: Ong
 
   @CreateDateColumn()
   created_at: Date;
