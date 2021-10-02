@@ -12,26 +12,25 @@ export default function NewIncident(){
   const [description, setDescription] = useState('')
   const [value, setValue] = useState('')
 
-  const { NewIncident} = useCase();
+  const { NewIncident } = useCase();
 
   const history = useHistory();
 
   async function handleNewIncident(e: FormEvent){
     e.preventDefault();
-
-    NewIncident({title, description, value})
+    
+    await NewIncident({title, description, value: Number(value)})
     history.push('/profile')
-  }
-
-  function Reset(e: FormEvent){
-    e.preventDefault();
+    
     setTitle('')
     setDescription('')
-    setValue('')
+    setValue('')   
   }
-
-
-  
+    
+  function Reset(){
+    history.push('/profile')
+  }
+ 
   
   return(
     <div className="new-incident-container">
@@ -53,7 +52,7 @@ export default function NewIncident(){
           
           <textarea placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)}/>
 
-          <input placeholder="Título do caso" value={value} onChange={e => setValue(e.target.value)}/>
+          <input placeholder="Valor" value={value} onChange={e => setValue(e.target.value)}/>
 
           <div className="buttons">
           <button className='button cancel' onClick={Reset}>Cancel</button>

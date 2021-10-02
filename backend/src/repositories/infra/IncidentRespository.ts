@@ -6,26 +6,33 @@ import { IIncidentRepository } from "../IIncidentRepository";
 
 export class IncidentRepository implements IIncidentRepository {
   private repository: Repository<Incident>
+  
   public constructor(){
     this.repository = getRepository(Incident)
   }
-  async create(data: ICreateIncidentDTO): Promise<void> {
+  async create({title, id, description, value, ong_id}: ICreateIncidentDTO): Promise<Incident> {
     const incident = this.repository.create({
-      ...data
+      title, description, value, ong_id, id
     })
 
     await this.repository.save(incident)
+
+    return incident
   }
-  async ListAllIncidentById(id: string): Promise<Incident[]> {
-    const allIncident = await this.repository.find({
-      where: {ong_id: id}, relations: ['ongs']
-    })
+  async ListAllIncidentById(ong_id: string): Promise<Incident[]> {
+    const allIncident = await this.repository.find({ong_id})
 
     return allIncident
   }
 
   async deleteIncident(id: string): Promise<void> {
     await this.repository.delete({id})
+  }
+
+  async findIncident(id: string): Promise<Incident> {
+    const incident = await this.repository.findOne(id)
+
+    return incident
   }
   
 }

@@ -10,33 +10,32 @@ interface Incidents {
   id: string;
   title: string;
   description: string;
-  value: string;
+  value: number;
+  ongId: string;
 
 }
 
-type IncidentsInput = Pick<Incidents, "title" |"description" | "value">
+type IncidentsInput = Pick<Incidents, "title" |"description" | "value" >
 
 
 interface CaseContextData {
-  incidents: Incidents[];
-  NewIncident: (data: IncidentsInput) => void;
+  NewIncident: (data: IncidentsInput) => Promise<void>;
   Delete: (id: string) => void;
 }
 
 const CaseContext = createContext<CaseContextData>({} as CaseContextData);
 
 export function CaseProvider({ children }: CaseProviderProps) {
-  const [incidents, setIncidents] = useState<Incidents[]>([])
 
   const ongId = localStorage.getItem('ongId')
  
 
-  const NewIncident = async (data: IncidentsInput) => {
-
+  async function NewIncident(data: IncidentsInput)  {
+    console.log(ongId)
     try{
       await api.post('incidents', data, {
         headers: {
-          Autorizaton: ongId
+          Authorization: ongId
         }
       })
     }catch(error){
@@ -47,21 +46,19 @@ export function CaseProvider({ children }: CaseProviderProps) {
 
   const Delete = async (id: string) => {
     try {
-      await api.delete(`incident/${id}`, {
+      await api.delete(`incidents/delete/${id}`, {
         headers: {
-          Authorizatoin: ongId
+          Authorization: ongId
         }
       })
-      const incidentRemove = incidents.filter(incident => incident.id !== id)
 
-      setIncidents(incidentRemove)
     } catch (error) {
       alert('Error ao deleter o caso, tente novamente')
     }
   }
 
   return (
-    <CaseContext.Provider value={{ incidents, Delete, NewIncident }}>{children}</CaseContext.Provider>
+    <CaseContext.Provider value={{ Delete, NewIncident }}>{children}</CaseContext.Provider>
   )
 }
 

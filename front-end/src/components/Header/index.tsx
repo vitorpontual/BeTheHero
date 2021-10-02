@@ -16,12 +16,14 @@ export default function Header({ongName}: ongProps) {
     localStorage.clear();
     history.push('/')
   }
+
+  
   return(
     <header>
       <img src={logoImg} alt="Be The Hero" />
       <span>Bem vindo, {ongName}</span>
 
-      <Link className='button' to='/incidents/new'>Cadastra novo Incidente</Link>
+      <Link className='button' to='/incidents/new' >Cadastra novo Incidente</Link>
       <button onClick={handlerLogout} type='button'>
         <FiPower size={18} color="#E02041" />
       </button>

@@ -22,14 +22,15 @@ export default function Logon() {
 
   async function handleLogin(e: FormEvent){
     e.preventDefault()
+    localStorage.clear()
     try {
       const response = await api.post('ongs/session', {id})
-
+      localStorage.clear();
       localStorage.setItem('ongId', id);
-      localStorage.setItem('ongName', response.data.name)
+      localStorage.setItem('ongName', response.data.name);
       history.push('/profile');
     } catch (error) {
-
+      alert('Erro ao logar, tente novamente.')
     }
   }
 
@@ -40,6 +41,14 @@ export default function Logon() {
   function handleCloseRegisterModel(){
     setRegisterModel(false)
   }
+
+  function refreshHandler() {
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000)
+  }
+
+  
 
   return(
     <div className='logon-container'>
@@ -53,7 +62,7 @@ export default function Logon() {
             onChange={e => setId(e.target.value)}
           />
           {/* <Link className='button' to='/profile'>Entrar</Link> */}
-          {<button className="button" type="submit">Entrar</button>}
+          {<button className="button" type="submit" onClick={refreshHandler}>Entrar</button>}
           <span className='back-link'  onClick={handleOpenRegisterModel} >
             <FiLogIn size={16} color='#E02041' />
             Não tenho cadastro

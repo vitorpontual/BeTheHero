@@ -1,12 +1,12 @@
-import { Column, CreateDateColumn, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from 'uuid'
 
 import { Ong } from "./Ong";
 
-
+@Entity("incidents")
 export class Incident {
   @PrimaryColumn()
-  id: string;
+  id?: string;
 
   @Column()
   title: string;
@@ -17,9 +17,8 @@ export class Incident {
   @Column()
   value: number;
 
-  @ManyToOne(() => Ong)
-  @JoinColumn({name: "ong_id"})
-  ong_id: Ong
+  @Column()
+  ong_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -28,8 +27,9 @@ export class Incident {
   updated_at: Date
 
   constructor(){
-    if(this.id){
-      this.id = uuid
+    if(!this.id){
+      const id = uuid()
+      this.id = id
     }
   }
 

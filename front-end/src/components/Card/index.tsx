@@ -9,20 +9,21 @@ interface IncidentsProps {
     description: string;
     value: number;
   }
+  handlerDelete: (id: string) => void;
 }
 
-export default function Card(data: IncidentsProps) {
+export default function Card({incident, handlerDelete}: IncidentsProps) {
 
 
   return (
     <li className='card'>
       <strong>CASO:</strong>
-      <p>{data.incident.title}</p>
+      <p>{incident.title}</p>
       <strong>DESCRIÇÃO:</strong>
-      <p>{data.incident.description}</p>
+      <p>{incident.description}</p>
       <strong>VALOR:</strong>
-      <p>{Intl.NumberFormat('pt-Br', { style: 'currency', currency: 'BRL' }).format(data.incident.value)} reais</p>
-      <button>
+      <p>{Intl.NumberFormat('pt-Br', { style: 'currency', currency: 'BRL' }).format(incident.value)} reais</p>
+      <button onClick={() => handlerDelete(incident.id)}>
         <FiTrash2 size={20} color='#a8ab3' />
       </button>
     </li>

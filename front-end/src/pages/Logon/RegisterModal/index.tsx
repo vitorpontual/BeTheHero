@@ -33,7 +33,6 @@ export default function RegisterModal({ isOpen, onRequestClose }: RegisterModel)
 
     try {
       const response = await api.post('/ongs', data);
-      console.log(response)
 
       alert(`Seu ID de acesso: ${response.data.id}`)
       setName('')
@@ -42,17 +41,25 @@ export default function RegisterModal({ isOpen, onRequestClose }: RegisterModel)
       setCity('')
       setUf('')
       history.push('/');
-      
+
     } catch (error) {
       alert('Erro no cadastro, tente novamente')
     }
+  }
+
+  function clearHandler() {
+    setName('')
+    setWhatsapp('')
+    setEmail('')
+    setCity('')
+    setUf('')
   }
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       overlayClassName='react-modal-overlay'
-      className='react-modal-content'   
+      className='react-modal-content'
       closeTimeoutMS={500}
     >
 
@@ -64,7 +71,7 @@ export default function RegisterModal({ isOpen, onRequestClose }: RegisterModel)
             <h1>Cadastro</h1>
             <p>Faça seu cadastro, entre na plataforma e ajude pessoas a encontrarem os casos da sua ONG.</p>
 
-            <span className='back-link'  onClick={onRequestClose}>
+            <span className='back-link' onClick={() => {onRequestClose(); clearHandler()}}>
               <FiArrowLeft size={16} color='#E02041' />
               Voltar para o Logon
             </span>

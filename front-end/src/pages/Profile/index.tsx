@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
+import { useCase } from "../../hooks/useCase";
 import { api } from "../../services/api";
 
 import './styles.scss'
@@ -16,7 +17,7 @@ interface Incidents {
 
 export default function Profile() {
   const [incidents, setIncidents] = useState<Incidents[]>([])
-
+  const {Delete} = useCase();
 
   const ongId = localStorage.getItem('ongId');
   const ongName = localStorage.getItem('ongName');
@@ -24,7 +25,7 @@ export default function Profile() {
   const history = useHistory();
 
   useEffect(() => {
-    api.get('profile', {
+    api.get('incidents', {
       headers: {
         Authorization: ongId
       }
@@ -32,6 +33,12 @@ export default function Profile() {
       setIncidents(response.data);
     });
   }, [ongId]);
+
+  async function handlerDeleteIncident(id: string) { 
+    Delete(id)
+
+    setIncidents(incidents.filter(incident => incident.id !== id))
+  }
 
 
 
@@ -41,7 +48,7 @@ export default function Profile() {
       <h1>Casos Cadastrados</h1>
       <ul>
         {incidents.map(data => (
-          <Card key={data.id} incident={data} />
+          <Card key={data.id} incident={data} handlerDelete={handlerDeleteIncident} />
         ))}
       </ul>
     </div>

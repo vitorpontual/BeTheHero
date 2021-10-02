@@ -1,7 +1,7 @@
 export interface ICreateIncidentDTO {
+  id?: string;
   title: string;
   description: string;
   value: number;
-  id?: string;
-  ongId: string;
+  ong_id: string;
 }
